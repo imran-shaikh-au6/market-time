@@ -177,11 +177,35 @@ module.exports = {
     }
 
     User.findByIdAndUpdate(
-      { _id: req.user.id },
-      { $set: userField },
-      { new: true }
+        { _id: req.user.id },
+        { $set: userField },
+        { new: true }
     ).then((user) => {
-      res.status(200).json({ message: "Updated successfully", data: user });
+        // JWT payload
+        const jwtPayload = {
+            id: user.id,
+            method: user.method,
+            name: user.name,
+            email: user.google.email,
+            image: user.image,
+            city: user.city,
+            contactNo: user.contactNo,
+            facebook: user.facebook,
+            youtube: user.youtube,
+            instagram: user.instagram,
+        };
+        //Sign Token
+        jwt.sign(
+            jwtPayload,
+            keys.secretOrKey,
+            { expiresIn: 3000000 },
+            (err, token) => {
+                res.json({
+                    success: true,
+                    token: "Bearer " + token,
+                });
+            }
+        );
     });
   },
   addTowishlist: async (req, res) => {
