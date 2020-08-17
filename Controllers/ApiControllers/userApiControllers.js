@@ -69,7 +69,7 @@ module.exports = {
                 jwt.sign(
                     payload,
                     "secret key",
-                    { expiresIn: 60 * 60 * 1 },
+                    { expiresIn: 60 * 60 * 30 },
                     (err, token) => {
                         res.json({
                             message: "Logged in Successfully",

@@ -28,15 +28,19 @@ module.exports = {
                         { $push: { myProducts: savedProduct._id } },
                         { new: true }
                     )
-                        .then((user) => res.json(user))
+                        .then((user) =>
+                            res.json({
+                                massage: "Uploaded Succesfully",
+                                data: user,
+                            })
+                        )
                         .catch((error) => console.log(error));
                 })
                 .catch((error) => console.log(error));
         };
         if (req.files.length > 0) {
             let images = [];
-            const titile = req.titile;
-            console.log(titile);
+           
             req.files.map(async (val, ind) => {
                 let wait = await cloudinary.uploader.upload(val.path, function (
                     error,
@@ -50,13 +54,12 @@ module.exports = {
                 if (images.length === req.files.length) {
                     const data = (newProduct.photos = images);
                     console.log(data);
-                    res.send("Uploaded successfully");
+
                     saveProduct(newProduct);
                 }
             });
         } else {
             saveProduct(newProduct);
-            res.send("Uploaded Successfully");
         }
     },
     editProduct: async (req, res) => {
@@ -70,9 +73,10 @@ module.exports = {
             brand: req.body.brand,
             year: req.body.year,
         };
+        console.log(editProduct)
         const newEditProduct = (product) => {
             Product.findByIdAndUpdate(
-                { _id: req.body.product_id },
+                { _id: req.body.id },
                 { $set: product },
                 { new: true }
             )
@@ -106,7 +110,7 @@ module.exports = {
         // Product.findByIdAndDelete({ _id: prId }).then(() => {
         //     res.send("Deleted Successfully");
         // });
-        const product= await Product.findOneAndDelete({
+        const product = await Product.findOneAndDelete({
             user: req.user.id,
             _id: req.body.id,
         });
