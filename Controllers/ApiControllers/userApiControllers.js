@@ -148,7 +148,7 @@ module.exports = {
             (err, token) => {
                 res.json({
                     message: "Logged in Google Successfully",
-                    token:"Bearer" + token,
+                    token: token,
                 });
             }
         );
@@ -204,7 +204,7 @@ module.exports = {
                 (err, token) => {
                     res.json({
                         success: true,
-                        token: "Bearer" + token,
+                        token: token,
                     });
                 }
             );
