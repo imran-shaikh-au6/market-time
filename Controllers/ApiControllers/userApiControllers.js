@@ -199,12 +199,12 @@ module.exports = {
             //Sign Token
             jwt.sign(
                 jwtPayload,
-                keys.secretOrKey,
+                "secret key",
                 { expiresIn: 3000000 },
                 (err, token) => {
                     res.json({
                         success: true,
-                        token: "Bearer " + token,
+                        token: token,
                     });
                 }
             );
