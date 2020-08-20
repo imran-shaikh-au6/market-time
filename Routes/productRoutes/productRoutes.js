@@ -30,7 +30,7 @@ router.post(
 );
 
 router.post(
-    "/deleteProduct",
+    "/deleteProduct/:id",
     passport.authenticate("jwt", { session: false }),
     deleteProduct
 );

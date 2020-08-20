@@ -212,8 +212,8 @@ module.exports = {
     },
     addTowishlist: async (req, res) => {
         const userId = req.user.id;
-        const proID = req.params.productId;
-        const productId = proID.slice(10);
+        const productId = req.params.productId;
+        
         console.log(productId);
         try {
             const data = await User.findById(userId);
@@ -255,6 +255,9 @@ module.exports = {
             .catch((error) => {
                 res.status(404).send("user not found");
             });
+
+            
+        
     },
 
     userEmailDetails: async (req, res) => {

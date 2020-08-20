@@ -107,22 +107,32 @@ module.exports = {
         }
     },
     deleteProduct: async (req, res) => {
-        const prId = req.body.id;
-        console.log(prId);
-        // Product.findByIdAndDelete({ _id: prId }).then(() => {
-        //     res.send("Deleted Successfully");
-        // });
-        const product = await Product.findOneAndDelete({
-            user: req.user.id,
-            _id: req.body.id,
-        });
-        if (product === null) {
-            res.status(403).send("You are not allowed to delete this property");
-        } else {
-            res.status(200).json({
-                massage: "Property deleted successfully",
-                Product: product,
+        const user = req.user.id;
+        const product_id = req.params.id;
+        try {
+            const product = await Product.findOneAndDelete({
+                user: user,
+                _id: product_id,
             });
+            await User.updateOne(
+                { _id: user },
+                {
+                    $pullAll: { myProducts: [product_id] },
+                }
+            );
+            if (product === null) {
+                res.status(403).send(
+                    "You are not allowed to delete this product"
+                );
+            } else {
+                res.status(200).json({
+                    massage: "Product deleted successfully",
+                    Product: product,
+                });
+            }
+        } catch (err) {
+            res.status(500).send("server error");
+            console.log(err.massage);
         }
     },
 };

@@ -35,6 +35,8 @@ module.exports = {
       res.status(400).send("No products found in Wishlist");
       console.log(error);
     }
+
+    
   },
 
   getMyProduct: async (req, res) => {
