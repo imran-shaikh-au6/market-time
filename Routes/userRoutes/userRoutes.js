@@ -22,7 +22,7 @@ const {
 } = require("../../Controllers/NormalControllers/userNormalController");
 
 router.get(
-  "/userProfile",
+  "/userProfile/:id",
   passport.authenticate("jwt", { session: false }),
   getUserProfile
 );

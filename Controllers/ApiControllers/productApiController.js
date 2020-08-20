@@ -40,7 +40,7 @@ module.exports = {
         };
         if (req.files.length > 0) {
             let images = [];
-           
+
             req.files.map(async (val, ind) => {
                 let wait = await cloudinary.uploader.upload(val.path, function (
                     error,
@@ -73,14 +73,16 @@ module.exports = {
             brand: req.body.brand,
             year: req.body.year,
         };
-        console.log(editProduct)
+        console.log(editProduct);
         const newEditProduct = (product) => {
             Product.findByIdAndUpdate(
                 { _id: req.body.id },
                 { $set: product },
                 { new: true }
             )
-                .then((product) => res.json(product))
+                .then((product) =>
+                    res.json({ message: "Edited Successfully", data: product })
+                )
                 .catch((err) => console.log(err));
         };
         if (req.files[0] !== "") {
