@@ -1,5 +1,5 @@
 const Product = require("../../Model/Product");
-
+const User = require("../../Model/User")
 module.exports = {
   getAllProducts: async (req, res) => {
     const page = req.params.page;
@@ -12,10 +12,13 @@ module.exports = {
   singleProduct: async (req, res) => {
     const productId = req.params.id;
     const singleProduct = await Product.findById(productId);
-    console.log(singleProduct);
+    // console.log(singleProduct.user);
+    const user = await User.findById(singleProduct.user);
+    console.log(user)
     res.status(200).json({
       message: "single product details",
-      data: singleProduct,
+      singleProductData: singleProduct,
+      user:user
     });
   },
   filterProduct: (req, res) => {
