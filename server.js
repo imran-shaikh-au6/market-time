@@ -16,7 +16,7 @@ app.use(bodyParser.json()).use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(
     cors({
-        origin: "https://peaceful-sammet-526422.netlify.app/",
+        origin: "https://peaceful-sammet-526422.netlify.app",
     })
 );
 const userRoutes = require("./Routes/userRoutes/userRoutes");
