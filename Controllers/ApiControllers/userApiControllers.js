@@ -5,8 +5,24 @@ const cloudinary = require("cloudinary");
 const nodemailer = require("nodemailer");
 const Product = require("../../Model/Product");
 const smtpTransport = require("nodemailer-smtp-transport");
+const validateRegisterData = require("../../config/validation/registerValidator");
+const validateLoginData = require("../../config/validation/loginValidator");
+
+
+
+
+
 module.exports = {
     registerUser: async (req, res) => {
+   const { errors, isValid } = validateRegisterData(req.body);
+
+   //checking for validation
+   if (!isValid) {
+       return res.status(400).json(errors);
+   }
+
+
+
         console.log(req.body);
         const user = await User.findOne({ "local.email": req.body.email });
         if (user) {
@@ -45,6 +61,15 @@ module.exports = {
         }
     },
     loginUser: async (req, res) => {
+
+  const { errors, isValid } = validateLoginData(req.body);
+
+  if (!isValid) {
+      return res.status(400).json(errors);
+  }
+
+
+
         const email = req.body.email;
         const password = req.body.password;
         User.userFind(email, password)

@@ -8,9 +8,18 @@ const fs = require("fs");
 
 module.exports = {
     addProducts: async (req, res) => {
+          const capitalLetters = (s) => {
+              return s
+                  .trim()
+                  .split(" ")
+                  .map((i) => i[0].toUpperCase() + i.substr(1))
+                  .reduce((ac, i) => `${ac} ${i}`);
+          };
+          const title1 = req.body.title;
+                  const mainTitle = capitalLetters(title1);
         const newProduct = {
             user: req.user.id,
-            title: req.body.title,
+            title: mainTitle,
             category: req.body.category,
             city: req.body.city,
             price: req.body.price,
