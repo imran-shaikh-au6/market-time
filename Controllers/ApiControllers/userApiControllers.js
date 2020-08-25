@@ -8,20 +8,14 @@ const smtpTransport = require("nodemailer-smtp-transport");
 const validateRegisterData = require("../../config/validation/registerValidator");
 const validateLoginData = require("../../config/validation/loginValidator");
 
-
-
-
-
 module.exports = {
     registerUser: async (req, res) => {
-   const { errors, isValid } = validateRegisterData(req.body);
+        const { errors, isValid } = validateRegisterData(req.body);
 
-   //checking for validation
-   if (!isValid) {
-       return res.status(400).json(errors);
-   }
-
-
+        //checking for validation
+        if (!isValid) {
+            return res.status(400).json(errors);
+        }
 
         console.log(req.body);
         const user = await User.findOne({ "local.email": req.body.email });
@@ -61,6 +55,11 @@ module.exports = {
         }
     },
     loginUser: async (req, res) => {
+        //   const { errors, isValid } = validateLoginData(req.body);
+
+        //   if (!isValid) {
+        //       return res.status(400).json(errors);
+        //   }
 
         const email = req.body.email;
         const password = req.body.password;
@@ -96,7 +95,7 @@ module.exports = {
                 );
             })
             .catch((err) => {
-                res.status(401).send("Incorrect Credentials");
+                res.status(401).json({ message: "Incorrect Credentials" });
             });
     },
     // logout: (req, res) => {
@@ -230,7 +229,7 @@ module.exports = {
     addTowishlist: async (req, res) => {
         const userId = req.user.id;
         const productId = req.params.productId;
-        
+
         console.log(productId);
         try {
             const data = await User.findById(userId);
@@ -272,9 +271,6 @@ module.exports = {
             .catch((error) => {
                 res.status(404).send("user not found");
             });
-
-            
-        
     },
 
     userEmailDetails: async (req, res) => {
