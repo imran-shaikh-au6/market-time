@@ -82,7 +82,7 @@ user.statics.userFind = function (email, password) {
                 return bcrypt.compare(password, user.local.password);
             })
             .then(function (isMatched) {
-                if (!isMatched) reject("Incorrect credentials");
+                if (!isMatched) return reject("Incorrect credentials");
                 resolve(userObj);
             })
             .catch(function (err) {

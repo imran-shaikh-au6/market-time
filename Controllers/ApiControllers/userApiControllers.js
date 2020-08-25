@@ -62,14 +62,6 @@ module.exports = {
     },
     loginUser: async (req, res) => {
 
-  const { errors, isValid } = validateLoginData(req.body);
-
-  if (!isValid) {
-      return res.status(400).json(errors);
-  }
-
-
-
         const email = req.body.email;
         const password = req.body.password;
         User.userFind(email, password)
