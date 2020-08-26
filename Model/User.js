@@ -51,6 +51,14 @@ const user = new Schema({
         type: Date,
         default: Date.now,
     },
+    resetlink: {
+        type: String,
+        default: "",
+    },
+    token: {
+        type: String,
+        default: "",
+    },
 });
 // user.pre("save", function (next) {
 //     var user = this;

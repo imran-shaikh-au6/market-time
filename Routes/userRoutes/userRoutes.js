@@ -5,65 +5,65 @@ const upload = require("../../config/multer");
 const router = express.Router();
 const passport = require("passport");
 const {
-  registerUser,
-  loginUser,
-  googleLogin,
-  logout,
-  addTowishlist,
-  editprofile,
-  deleteFromWishList,
-  userEmailDetails,
+    registerUser,
+    loginUser,
+    googleLogin,
+    addTowishlist,
+    editprofile,
+    deleteFromWishList,
+    userEmailDetails,
+    forgetpassword,
+    updatePassword,
 } = require("../../Controllers/ApiControllers/userApiControllers");
 
 const {
-  getUserProfile,
-  getWishList,
-  getMyProduct
+    getUserProfile,
+    getWishList,
+    getMyProduct,
 } = require("../../Controllers/NormalControllers/userNormalController");
 
 router.get(
-  "/userProfile/:id",
-  passport.authenticate("jwt", { session: false }),
-  getUserProfile
+    "/userProfile/:id",
+    passport.authenticate("jwt", { session: false }),
+    getUserProfile
 );
-router.get("/userWishList", passport.authenticate("jwt", { session: false }),
-  getWishList)
-router.get("/userMyPro", passport.authenticate("jwt", { session: false }),
-  getMyProduct)
-
+router.get(
+    "/userWishList",
+    passport.authenticate("jwt", { session: false }),
+    getWishList
+);
+router.get(
+    "/userMyPro",
+    passport.authenticate("jwt", { session: false }),
+    getMyProduct
+);
 
 router.post("/user/register", registerUser);
 router.post("/user/login", loginUser);
 router.post("/google", googleLogin);
 router.post(
-  "/user/editprofile",
-  passport.authenticate("jwt", { session: false }),
-  upload.single("image"),
-  editprofile
+    "/user/editprofile",
+    passport.authenticate("jwt", { session: false }),
+    upload.single("image"),
+    editprofile
 );
 router.post(
-  "/user/addTowishlist/:productId",
-  passport.authenticate("jwt", { session: false }),
-  addTowishlist
+    "/user/addTowishlist/:productId",
+    passport.authenticate("jwt", { session: false }),
+    addTowishlist
 );
 router.post(
-  "/user/deleteFromWishList/:productId",
-  passport.authenticate("jwt", { session: false }),
-  deleteFromWishList
+    "/user/deleteFromWishList/:productId",
+    passport.authenticate("jwt", { session: false }),
+    deleteFromWishList
 );
 
 router.post(
-  "/userEmailDetails/:product_id",
-  passport.authenticate("jwt", { session: false }),
-  userEmailDetails
+    "/userEmailDetails/:product_id",
+    passport.authenticate("jwt", { session: false }),
+    userEmailDetails
 );
+router.post("/userForgetPassword", forgetpassword);
+router.post("/updatePassword", updatePassword);
 
-//get routes
-// router.get(
-//   "/userProfile",
-//   passport.authenticate("jwt", { session: false }),
-//   getUserProfile
-// );
-
-// router.post("/user/logout",auth, logout);
 module.exports = router;
