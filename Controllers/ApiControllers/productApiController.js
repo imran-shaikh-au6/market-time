@@ -8,15 +8,15 @@ const fs = require("fs");
 
 module.exports = {
     addProducts: async (req, res) => {
-          const capitalLetters = (s) => {
-              return s
-                  .trim()
-                  .split(" ")
-                  .map((i) => i[0].toUpperCase() + i.substr(1))
-                  .reduce((ac, i) => `${ac} ${i}`);
-          };
-          const title1 = req.body.title;
-                  const mainTitle = capitalLetters(title1);
+        const capitalLetters = (s) => {
+            return s
+                .trim()
+                .split(" ")
+                .map((i) => i[0].toUpperCase() + i.substr(1))
+                .reduce((ac, i) => `${ac} ${i}`);
+        };
+        const title1 = req.body.title;
+        const mainTitle = capitalLetters(title1);
         const newProduct = {
             user: req.user.id,
             title: mainTitle,
@@ -108,6 +108,7 @@ module.exports = {
                 images.push(wait.url);
                 if (images.length === req.files.length) {
                     editProduct.photos = images;
+                    console.log(editProduct);
                     newEditProduct(editProduct);
                 }
             });

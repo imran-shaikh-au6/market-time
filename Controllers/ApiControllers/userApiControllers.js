@@ -20,7 +20,9 @@ module.exports = {
         console.log(req.body);
         const user = await User.findOne({ "local.email": req.body.email });
         if (user) {
-            return res.status(400).send("Email Already Exists, Please Login");
+            return res
+                .status(400)
+                .json({ message: "Email Already Exists, Please Login" });
         } else {
             const newUser = new User({
                 method: "local",

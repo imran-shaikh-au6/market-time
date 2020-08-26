@@ -24,7 +24,7 @@ router.post(
 
 router.post(
     "/editproduct",
-    passport.authenticate("jwt", { session: false }),
+
     upload.array("image", 3),
     editProduct
 );
