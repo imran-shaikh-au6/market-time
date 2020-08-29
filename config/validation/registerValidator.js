@@ -6,6 +6,7 @@ module.exports = function validateRegisterData(data) {
     data.name = !isEmpty(data.name) ? data.name : "";
     data.email = !isEmpty(data.email) ? data.email : "";
     data.password = !isEmpty(data.password) ? data.password : "";
+    data.contactNo = !isEmpty(data.contactNo) ? data.contactNo : "";
 
     if (!Validator.isLength(data.name, { min: 2, max: 30 })) {
         errors.name = "Name must be between 2 to 30 characters";
@@ -26,6 +27,10 @@ module.exports = function validateRegisterData(data) {
 
     if (Validator.isEmpty(data.password)) {
         errors.password = "Password field is required";
+    }
+
+    if (Validator.isLength(data.contactNo, { min: 10, max: 11 })) {
+        errors.contactNo = "Please provide a valide contact number";
     }
     return {
         errors,
