@@ -206,7 +206,7 @@ module.exports = {
                 id: user.id,
                 method: user.method,
                 name: user.name,
-                email: user.google.email,
+                email: user.google.email || user.local.email,
                 image: user.image,
                 city: user.city,
                 contactNo: user.contactNo,
