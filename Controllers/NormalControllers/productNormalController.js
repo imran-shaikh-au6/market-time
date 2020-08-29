@@ -2,12 +2,8 @@ const Product = require("../../Model/Product");
 const User = require("../../Model/User");
 module.exports = {
     getAllProducts: async (req, res) => {
-        const page = req.params.page;
-        const startIndex = (page - 1) * 12;
-        const endIndex = page * 12;
         const allProduct = await Product.find().sort({ date: -1 });
-        const mainProducts = allProduct.slice(startIndex, endIndex);
-        res.status(200).json({ allProduct: mainProducts });
+        res.status(200).json({ allProduct: allProduct });
     },
     singleProduct: async (req, res) => {
         const productId = req.params.id;
@@ -72,7 +68,7 @@ module.exports = {
         if (category !== "undefined") sort.category = category;
         if (title1 !== "undefined" && title1 !== "") {
             const fixed = capitalLetters(title1);
-           const data =  new RegExp(fixed, "g");
+            const data = new RegExp(fixed, "g");
             sort.title = data;
         }
 

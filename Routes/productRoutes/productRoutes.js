@@ -37,7 +37,7 @@ router.post(
 
 //Get Routes
 
-router.get("/allProduct/:page", getAllProducts);
+router.get("/allProduct", getAllProducts);
 router.get("/singleProduct/:id", singleProduct);
 router.get("/filterProduct/:page", filterProduct);
 
